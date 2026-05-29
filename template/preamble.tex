@@ -1,0 +1,264 @@
+% =============================================================
+%  Page geometry
+% =============================================================
+\usepackage[
+    paperwidth  = 7.5in,
+    paperheight = 9.25in,
+    top         = 1.0in,
+    bottom      = 1.1in,
+    inner       = 1.1in,
+    outer       = 1.0in,
+    marginpar   = 0.7in,
+    marginparsep= 0.15in
+]{geometry}
+
+% =============================================================
+%  Typography
+% =============================================================
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+
+% =============================================================
+%  Colors  (load BEFORE tcolorbox and hyperref)
+% =============================================================
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{TheoremBg}{RGB}{230, 240, 252}
+\definecolor{TheoremFrame}{RGB}{0, 90, 160}
+\definecolor{DefGreen}{RGB}{0, 130, 80}
+\definecolor{DefBg}{RGB}{235, 252, 240}
+\definecolor{LemmaYellow}{RGB}{255, 248, 220}
+\definecolor{LemmaFrame}{RGB}{180, 140, 0}
+\definecolor{PropBg}{RGB}{245, 235, 255}
+\definecolor{PropFrame}{RGB}{120, 60, 180}
+\definecolor{ExBg}{RGB}{252, 248, 240}
+\definecolor{ExFrame}{RGB}{200, 140, 60}
+\definecolor{RemBg}{RGB}{250, 245, 245}
+\definecolor{RemFrame}{RGB}{180, 80, 80}
+\definecolor{DarkNavy}{RGB}{10, 20, 60}
+\definecolor{OffWhite}{RGB}{245, 245, 240}
+\definecolor{Blue}{RGB}{0, 90, 160}
+\definecolor{AccentGray}{RGB}{120, 130, 150}
+
+% =============================================================
+%  Math
+% =============================================================
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{thmtools}
+
+% =============================================================
+%  Theorem boxes  (tcolorbox — load AFTER xcolor)
+% =============================================================
+\usepackage[most]{tcolorbox}
+
+% ---- shared style helpers ----------------------------------
+\tcbset{
+    thmbase/.style = {
+        enhanced, breakable,
+        fonttitle = \bfseries\sffamily,
+        separator sign = {\ $\triangleright$\ },
+        description font = \normalfont\itshape,
+        attach boxed title to top left = {yshift=-2mm, xshift=4mm},
+        boxed title style = {
+            sharp corners, size=small,
+            colframe = #1, colback = #1
+        },
+        colframe = #1, sharp corners = south,
+        top = 4pt, bottom = 4pt,
+        before skip = 8pt, after skip = 8pt,
+    }
+}
+
+% ---- Theorem -----------------------------------------------
+\newtcbtheorem[number within=section]{theorem}{Theorem}{
+    thmbase = TheoremFrame,
+    colback  = TheoremBg,
+    coltitle = white,
+}{thm}
+
+% ---- Definition --------------------------------------------
+\newtcbtheorem[use counter from=theorem]{definition}{Definition}{
+    thmbase  = DefGreen,
+    colback  = DefBg,
+    coltitle = white,
+}{def}
+
+% ---- Lemma -------------------------------------------------
+\newtcbtheorem[use counter from=theorem]{lemma}{Lemma}{
+    thmbase  = LemmaFrame,
+    colback  = LemmaYellow,
+    coltitle = white,
+}{lem}
+
+% ---- Proposition -------------------------------------------
+\newtcbtheorem[use counter from=theorem]{proposition}{Proposition}{
+    thmbase  = PropFrame,
+    colback  = PropBg,
+    coltitle = white,
+}{prop}
+
+% ---- Corollary ---------------------------------------------
+\newtcbtheorem[use counter from=theorem]{corollary}{Corollary}{
+    thmbase  = TheoremFrame,
+    colback  = TheoremBg!50!white,
+    coltitle = white,
+}{cor}
+
+% ---- Example -----------------------------------------------
+\newtcbtheorem[use counter from=theorem]{example}{Example}{
+    thmbase  = ExFrame,
+    colback  = ExBg,
+    coltitle = white,
+}{ex}
+
+% ---- Remark ------------------------------------------------
+\newtcbtheorem[use counter from=theorem]{remark}{Remark}{
+    thmbase  = RemFrame,
+    colback  = RemBg,
+    coltitle = white,
+}{rem}
+
+% ---- Proof -------------------------------------------------
+\tcolorboxenvironment{proof}{
+    blanker, breakable,
+    left = 6mm,
+    before skip = 4pt, after skip = 8pt,
+    borderline west = {1.5pt}{0pt}{AccentGray},
+}
+
+% =============================================================
+%  Section / Subsection formatting  (titlesec)
+% =============================================================
+\usepackage{titlesec}
+\usepackage{titletoc}
+
+\titleformat{\section}
+    {\large\bfseries\sffamily\color{DarkNavy}}
+    {\color{Blue}\thesection}{0.8em}{}
+    [{\color{Blue}\titlerule[0.6pt]}]
+
+\titleformat{\subsection}
+    {\normalsize\bfseries\sffamily\color{DarkNavy}}
+    {\color{Blue}\thesubsection}{0.7em}{}
+
+\titleformat{\subsubsection}[runin]
+    {\normalsize\bfseries\sffamily\color{AccentGray}}
+    {\thesubsubsection}{0.6em}{}[.\quad]
+
+\titlespacing*{\section}      {0pt}{1.8ex plus .4ex}{0.8ex plus .2ex}
+\titlespacing*{\subsection}   {0pt}{1.2ex plus .3ex}{0.5ex plus .1ex}
+\titlespacing*{\subsubsection}{0pt}{0.8ex plus .2ex}{0pt}
+
+% =============================================================
+%  Headers & Footers
+% =============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\sffamily\color{AccentGray}\thepage\ \textbar\ \leftmark}
+\fancyhead[RO]{\small\sffamily\color{AccentGray}\rightmark\ \textbar\ \thepage}
+\fancyfoot[C]{\small\sffamily\color{AccentGray}\textit{\docsubtitle}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.3pt}
+\renewcommand{\headrule}{\color{AccentGray}\hrule width\headwidth height\headrulewidth}
+\renewcommand{\footrule}{\color{AccentGray}\hrule width\headwidth height\footrulewidth}
+
+% Plain style for chapter/title pages
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\small\sffamily\color{AccentGray}\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% =============================================================
+%  Lists
+% =============================================================
+\usepackage{enumitem}
+\setlist[itemize]{
+    leftmargin=*, topsep=3pt, itemsep=2pt,
+    label={\color{Blue}\textbullet}
+}
+\setlist[enumerate]{
+    leftmargin=*, topsep=3pt, itemsep=2pt,
+    label={\color{Blue}\arabic*.}
+}
+
+% =============================================================
+%  Hyperlinks  (load near-last, before cleveref)
+% =============================================================
+\usepackage[
+    colorlinks = true,
+    linkcolor  = Blue,
+    citecolor  = DefGreen,
+    urlcolor   = Blue,
+    pdfusetitle
+]{hyperref}
+\usepackage{cleveref}   % \cref{} — load AFTER hyperref
+
+% =============================================================
+%  Utilities
+% =============================================================
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{marginnote}
+\renewcommand{\marginfont}{\footnotesize\sffamily\color{AccentGray}}
+\usepackage{makeidx}
+\makeindex
+
+% =============================================================
+%  Macros — sets & fields
+% =============================================================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+
+% --- Calculus / Analysis ------------------------------------
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\dmu}{\,\mathrm{d}\mu}
+% FIX: \dx and \dt now accept an optional variable argument so that
+%      \dx    => \,\mathrm{d}x   (default)
+%      \dx[y] => \,\mathrm{d}y   (used e.g. in the convolution integral)
+%      \dt    => \,\mathrm{d}t   (default)
+\newcommand{\dx}[1][x]{\,\mathrm{d}#1}
+\newcommand{\dt}[1][t]{\,\mathrm{d}#1}
+\newcommand{\pdv}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dv}[2]{\dfrac{\mathrm{d} #1}{\mathrm{d} #2}}
+
+% --- Operators ----------------------------------------------
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\esssup}{ess\,sup}
+\DeclareMathOperator{\essinf}{ess\,inf}
+\DeclareMathOperator{\Leb}{Leb}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\sgn}{sgn}
+
+% --- Paired delimiters (auto-scaling with *) ----------------
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\inner}{\langle}{\rangle}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\set}{\{}{\}}   % \set*{\,x : P(x)\,}
+
+% --- Restriction --------------------------------------------
+\newcommand{\restr}[2]{\left.\kern-\nulldelimiterspace #1\right|_{#2}}
+
+% --- Misc ---------------------------------------------------
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ph}{\varphi}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\wh}[1]{\widehat{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+
+% Margin note shortcut
+\newcommand{\mn}[1]{\marginnote{#1}}

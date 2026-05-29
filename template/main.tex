@@ -1,0 +1,47 @@
+\documentclass[11pt]{article}
+
+% =============================================================
+%  Load Preamble
+% =============================================================
+\input{./preamble.tex}
+
+% =============================================================
+%  Document metadata
+% =============================================================
+\newcommand{\docsubtitle}{Real Analysis — Lecture Notes}
+\title{%
+    {\sffamily\huge\bfseries\color{DarkNavy} Real Analysis}\\[6pt]
+    {\sffamily\large\color{AccentGray} A Self-Contained Set of Lecture Notes}
+}
+\author{{\sffamily Your Name}}
+\date{{\sffamily\small\color{AccentGray} \today}}
+
+% =============================================================
+\begin{document}
+% =============================================================
+
+\pagecolor{OffWhite}
+\color{DarkNavy}
+
+% ---- Title page --------------------------------------------
+\maketitle
+\thispagestyle{plain}
+
+\begin{abstract}
+\noindent
+These notes cover the core topics of a first graduate course in real analysis:
+measure theory, the Lebesgue integral, $L^p$ spaces, and Fourier analysis.
+All results are stated precisely and most are proved in full.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% =============================================================
+%  Load Content
+% =============================================================
+\input{./content.tex}
+
+% ============================================================
+\printindex
+\end{document}
